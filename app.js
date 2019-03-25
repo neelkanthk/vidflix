@@ -2,21 +2,30 @@ const express = require('express');
 const Joi = require('joi');
 const vidflixDb = require('./vidflixDb');
 const vidflixApi = express();
+const mongoose = require('mongoose');
+const Movie = require('./models/movie');
 
 const moviesList = vidflixDb.movies;
 
-var i = 1;
-for (var i in moviesList) {
-    moviesList[i].id = parseInt(i) + 1;
-}
+//Connect to MongoDb
+mongoose.connect('mongodb://localhost/vidflix');
+const db = mongoose.connection;
 
 //Get all movies
 vidflixApi.get('/api/v1/movies', (req, res) => {
-    let movies = {
-        "total": moviesList.length,
-        "movies": moviesList.slice(0, 9)
-    };
-    res.status(200).contentType('application/json').send(movies);
+    //Query Db
+
+    Movie.getMovies(function (error, moviesList) {
+        if (error) {
+            throw error;
+        }
+        let movies = {
+            "total": 133,
+            "movies": moviesList
+        };
+        res.status(200).contentType('application/json').send(movies);
+    },5);
+
 });
 //Get movie by Id
 vidflixApi.get('/api/v1/movies/:id', (req, res) => {
@@ -25,8 +34,7 @@ vidflixApi.get('/api/v1/movies/:id', (req, res) => {
     //res.send(queryParams);
     const movie = moviesList.find(movie => movie.id === id);
 
-    if (!movie)
-    {
+    if (!movie) {
         res.status(404).send("Movie with given ID is not found."); //404 Not Found
         return;
     }
@@ -68,7 +76,7 @@ vidflixApi.post('/api/v1/movies', (req, res) => {
 vidflixApi.patch('/api/v1/movies/:id', (req, res) => {
     var id = parseInt(req.params.id); //Type casting 'id' into integer
     const movie = moviesList.find(movie => movie.id === id);
-    if (!movie){
+    if (!movie) {
         res.status(404).send("Movie with given ID is not found."); //404 Not Found
         return;
     }
@@ -86,7 +94,7 @@ vidflixApi.patch('/api/v1/movies/:id', (req, res) => {
 vidflixApi.delete('/api/v1/movies/:id', (req, res) => {
     var id = parseInt(req.params.id); //Type casting 'id' into integer
     const movie = moviesList.find(movie => movie.id === id);
-    if (!movie){
+    if (!movie) {
         res.status(404).send("Movie with given ID is not found."); //404 Not Found
         return;
     }

@@ -15,3 +15,9 @@ npm -v
 #3. Install nodemon module globally
 
 sudo npm install -g nodemon
+
+#4 Install MongoDB
+
+#5 Import movies.json into MongoDb
+
+mongoimport --db vidflix --collection movies --type json --file movies.json --jsonArray
