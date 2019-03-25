@@ -8,37 +8,34 @@ const Movie = require('./models/movie');
 const moviesList = vidflixDb.movies;
 
 //Connect to MongoDb
-mongoose.connect('mongodb://localhost/vidflix');
+mongoose.connect('mongodb://localhost/vidflix', { useNewUrlParser: true });
 const db = mongoose.connection;
 
 //Get all movies
 vidflixApi.get('/api/v1/movies', (req, res) => {
     //Query Db
+    Movie.getMovies(5, function (moviesList) {
+        Movie.countMovies(function (count) {
+            let movies = {
+                "total": count,
+                "movies": moviesList
+            };
+            res.status(200).contentType('application/json').json(movies);
+        });
 
-    Movie.getMovies(function (error, moviesList) {
-        if (error) {
-            throw error;
-        }
-        let movies = {
-            "total": 133,
-            "movies": moviesList
-        };
-        res.status(200).contentType('application/json').send(movies);
-    },5);
-
+    });
 });
 //Get movie by Id
 vidflixApi.get('/api/v1/movies/:id', (req, res) => {
     var id = parseInt(req.params.id); //Type casting 'id' into integer
     let queryParams = req.query;
-    //res.send(queryParams);
-    const movie = moviesList.find(movie => movie.id === id);
-
-    if (!movie) {
-        res.status(404).send("Movie with given ID is not found."); //404 Not Found
-        return;
-    }
-    res.send(movie);
+    Movie.getMovieById(id, function (movie) {
+        if (!movie) {
+            res.status(404).send("Movie with given ID is not found."); //404 Not Found
+            return;
+        }
+        res.json(movie);
+    });
 });
 
 //Adding a new movie
@@ -70,7 +67,7 @@ vidflixApi.post('/api/v1/movies', (req, res) => {
     };
     moviesList.push(newMovie);
     //return created entity
-    res.status(200).send(newMovie);
+    res.status(200).json(newMovie);
 });
 
 vidflixApi.patch('/api/v1/movies/:id', (req, res) => {
@@ -88,7 +85,7 @@ vidflixApi.patch('/api/v1/movies/:id', (req, res) => {
     //Update
     movie.title = req.body.title;
     movie.year = req.body.year;
-    res.send(movie);
+    res.json(movie);
 });
 
 vidflixApi.delete('/api/v1/movies/:id', (req, res) => {
@@ -101,7 +98,7 @@ vidflixApi.delete('/api/v1/movies/:id', (req, res) => {
     //Delete
     let index = moviesList.indexOf(movie);
     moviesList.splice(index, 1);
-    res.send(movie);
+    res.json(movie);
 });
 
 function validateMovie(movie) {
