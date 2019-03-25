@@ -65,7 +65,7 @@ vidflixApi.post('/api/v1/movies', (req, res) => {
     res.status(200).send(newMovie);
 });
 
-vidflixApi.put('/api/v1/movies/:id', (req, res) => {
+vidflixApi.patch('/api/v1/movies/:id', (req, res) => {
     var id = parseInt(req.params.id); //Type casting 'id' into integer
     const movie = moviesList.find(movie => movie.id === id);
     if (!movie){
@@ -79,6 +79,7 @@ vidflixApi.put('/api/v1/movies/:id', (req, res) => {
     }
     //Update
     movie.title = req.body.title;
+    movie.year = req.body.year;
     res.send(movie);
 });
 

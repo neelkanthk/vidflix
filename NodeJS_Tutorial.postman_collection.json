@@ -1,0 +1,151 @@
+{
+	"info": {
+		"_postman_id": "bfe408ae-f1fa-4899-b24a-680693531b51",
+		"name": "NodeJS_Tutorial",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:3000/api/v1/movies",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/v1/movies",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"movies"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/api/v1/movies/2",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/v1/movies/134",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"movies",
+						"134"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/api/v1/movies",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"Thugs of Hindostan\",\n    \"year\": \"2018\",\n    \"genres\": [\n        \"Action\",\n        \"Adventure\"\n    ],\n    \"ratings\": [\n        5,\n        1,\n        5,\n        1,\n        3,\n        4\n    ],\n    \"poster\": \"\",\n    \"contentRating\": \"\",\n    \"duration\": \"PT164M\",\n    \"releaseDate\": \"2018-12-06\",\n    \"averageRating\": 4,\n    \"originalTitle\": \"\",\n    \"storyline\": \"A story about one man's love for his nation and another's love for power. An epic adventure filled with edge-of-the-seat thrills and war on the seas.\",\n    \"actors\": [\n        \"Aamir Khan\",\n        \"Amitabh Bachchan\",\n        \"Katrina Kaif\"\n    ],\n    \"imdbRating\": 4,\n    \"posterurl\": \"https://m.media-amazon.com/images/M/MV5BMTA3ODUxMzUzMzleQTJeQWpwZ15BbWU4MDMzMzkyNDYz._V1_UY268_CR6,0,182,268_AL__QL50.jpg\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/v1/movies",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"movies"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/api/v1/movies/134",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"title\" : \"Thugs of Hindostan\",\n    \"year\": \"2019\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/v1/movies/134",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"movies",
+						"134"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/api/v1/movies/134",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/v1/movies/134",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"movies",
+						"134"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
